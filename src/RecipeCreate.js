@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 function RecipeCreate({ createRecipe }) {
+  /*
   const [name, setName] = useState("Name");
   const handleNameChange = (event) => setName(event.target.value);
   const [cuisine, setCuisine] = useState("Cuisine");
@@ -11,12 +12,32 @@ function RecipeCreate({ createRecipe }) {
   const handleIngredientChange = (event) => setIngredients(event.target.value); 
   const [preparation, setPreparation] = useState("Preparation");
   const handlePreparationChange = (event) => setPreparation(event.target.value);
-  
+  */
+
+  const recipe = { name: "", 
+  cuisine: "", 
+  photo: "", 
+  ingredients: "", 
+  preparation: "", 
+ };
+
+const [formData, setFormData] = useState({ ...recipe });
+
+const handleChange = ({ target }) => { 
+setFormData({ ...formData, [target.name]: target.value }); 
+};
+
+const handleSubmit = (event) => { 
+event.preventDefault(); 
+createRecipe(formData); 
+setFormData({ ...recipe });     
+}; 
 
   // TODO: When the form is submitted, a new recipe should be created, and the form contents cleared.
   // TODO: Add the required input and textarea form elements.
   // TODO: Add the required submit and change handlers
   
+  /*
   const handleSubmit = (event) => {
     event.preventDefault();
     createRecipe({name, cuisine, photo, ingredients, preparation});
@@ -26,7 +47,8 @@ function RecipeCreate({ createRecipe }) {
     setIngredients("Ingredients");
     setPreparation("Preparation");
   };
-  
+  */
+
   return (
     <form onSubmit={handleSubmit} name="create">
       <table>
@@ -37,8 +59,10 @@ function RecipeCreate({ createRecipe }) {
                 id="name"
                 name="name"
                 type="text"
-                onChange={handleNameChange}
-                value={name}
+                required={true} 
+                onChange={handleChange}
+                value={formData.name}
+                placeholder="Name"
               />
             </td>
             <td>
@@ -46,8 +70,10 @@ function RecipeCreate({ createRecipe }) {
                 id="cuisine"
                 name="cuisine"
                 type="text"
-                onChange={handleCuisineChange}
-                value={cuisine}
+                required={true} 
+                onChange={handleChange}
+                value={formData.cuisine}
+                placeholder="Cuisine"
               />
             </td>
             <td>
@@ -55,8 +81,10 @@ function RecipeCreate({ createRecipe }) {
                 id="photo"
                 name="photo"
                 type="text"
-                onChange={handlePhotoChange}
-                value={photo}
+                required={true} 
+                onChange={handleChange}
+                value={formData.photo}
+                placeholder="URL"
               />
             </td>
             <td>
@@ -64,9 +92,11 @@ function RecipeCreate({ createRecipe }) {
                 id="ingredients"
                 name="ingredients"
                 type="text"
+                required={true} 
                 rows={2}
-                onChange={handleIngredientChange}
-                value={ingredients}
+                onChange={handleChange}
+                value={formData.ingredients}
+                placeholder="Ingredients"
               />
             </td>
             <td>
@@ -74,9 +104,11 @@ function RecipeCreate({ createRecipe }) {
                 id="preparation"
                 name="preparation"
                 type="text"
+                required={true} 
                 rows={2}
-                onChange={handlePreparationChange}
-                value={preparation}
+                onChange={handleChange}
+                value={formData.preparation}
+                placeholder="Preparation"
               />                    
             </td>
             <td>
